@@ -1,18 +1,18 @@
 var express = require('express');
 var router = express.Router();
 var MongoClient = require('mongodb').MongoClient;
-
+var url = "mongodb://localhost:27017/test";
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  
-  var url = "mongodb://localhost:27017/";
-
+router.get('/', function (req, res, next) {
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
-    var dbo = db.db("runoob");
-    dbo.collection("site").findOne({}, function (err, result) {
+    var dbo = db.db("test");
+    dbo.collection("hf").findOne({}, function (err, result) {
       if (err) throw err;
-      console.log(result);
+      res.render('users', {
+        username: result.username,
+        password: result.password
+      });
       db.close();
     });
   });
