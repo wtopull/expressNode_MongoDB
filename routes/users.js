@@ -31,13 +31,42 @@ router.get("/",function(req,res,next){
       res.json({
         status:"0",
         msg:"",
-        result:{
+        data:{
           count:doc.length,
-          list:doc
+          data:doc
         }
       });
     }
-  })
-})
+  });
+});
 
+router.post("/login",function(req,res,next){
+  let param = {
+    username:req.body.username,
+    password:req.body.password
+  }
+  Users.findOne(param,function(err,doc){
+    if(err){
+      res.json({
+        status:"1",
+        msg:err.message
+      });
+    }else{
+      if(doc){
+        res.cookie("userId",doc.userId,{
+          path:'/',
+          maxAge:3600000
+        });
+        // res.session.user = doc;
+        res.json({
+          status:"0",
+          msg:"",
+          data:{
+            username:doc.username
+          }
+        })
+      }
+    }
+  });
+});
 module.exports = router;

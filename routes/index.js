@@ -6,10 +6,10 @@ router.get('/', function (req, res, next) {
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
     var dbo = db.db("test");
-    dbo.collection("hf").findOne({}, function (err, result) {
+    dbo.collection("hf").findOne({}, function (err, data) {
       if (err) throw err;
       res.render('index', {
-        title: result.name
+        title: data.name
       });
       db.close();
     });
