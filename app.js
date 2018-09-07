@@ -6,8 +6,11 @@ var logger = require('morgan');
 var ejs = require("ejs"); //切换模板语言
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var bodyParser = require('body-parser');
 var app = express();
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 //切换模板语言
@@ -20,7 +23,8 @@ app.all('*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
-  res.header("Content-Type", "application/json;charset=utf-8");
+  //res.header("Content-Type", "application/json;charset=utf-8");
+   res.header("Content-Type", "application/x-www-form-urlencoded");
   next();
 });
 
