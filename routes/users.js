@@ -31,12 +31,12 @@ router.get("/", function (req, res, next) {
     // Users.find({}, '-_id', (err, doc) => {
       if (err) {
         res.json({
-          status: "1",
+          status: "0",
           msg: err.message
         });
       } else {
         res.json({
-          status: "0",
+          status: "1",
           msg: "获取个人信息成功！",
           count: doc.length,
           data: doc,
@@ -45,31 +45,31 @@ router.get("/", function (req, res, next) {
     });
   } catch (error) {
     res.json({
-      status: "1",
+      status: "0",
       msg: error.message
     });
   }
 });
 
-router.post('/login', (req, res, next) => {
-  // var md5 = crypto.createHash('md5');
-  // 打印post请求的数据内容
-  console.log(req.body);
-  res.status(200).send("success");
-  // console.log(req.body.username);
-  // console.log(req.body.password);
-  // if (req.body.username == "huiyuan101" && req.body.password == "11211121") {
-  //   res.send(JSON.stringify(dataSuccess));
-  // } else {
-  //   res.send(JSON.stringify(dataError));
-  // }
-  // var myData = new User(req.body);
-  // myData.save().then(item => {
-  //   res.send("item saved to database");
-  // }).catch(err => {
-  //   res.status(400).send("unable to save to database");
-  // });
-});
+// router.post('/login', (req, res, next) => {
+//   // var md5 = crypto.createHash('md5');
+//   // 打印post请求的数据内容
+//   console.log(req.body.username);
+//   res.status(200).send("success");
+//   console.log(req.body.username);
+//   console.log(req.body.password);
+//   if (req.body.username == "huiyuan101" && req.body.password == "11211121") {
+//     res.send(JSON.stringify(dataSuccess));
+//   } else {
+//     res.send(JSON.stringify(dataError));
+//   }
+//   var myData = new User(req.body);
+//   myData.save().then(item => {
+//     res.send("item saved to database");
+//   }).catch(err => {
+//     res.status(400).send("unable to save to database");
+//   });
+// });
 
 // router.all('/login', function (req, res, next) {
 //   console.log(req.method); // 打印请求方式
@@ -88,34 +88,33 @@ router.post('/login', (req, res, next) => {
 //   }
 // });
 
-// router.post("/login", (req, res) => {
-//   console.log(req.body.username);
-//   // try {
-//   //   let param = {
-//   //     username: req.body.username,
-//   //     password: req.body.password
-//   //   }
-//   //   console.log(param.username)
-//   //   Users.find({}, (err, doc) => {
-//   //     if (err) {
-//   //       res.json({
-//   //         status: "1",
-//   //         msg: err.message
-//   //       });
-//   //     } else {
-//   //       res.json({
-//   //         status: "0",
-//   //         msg: "登陆成功",
-//   //         count: doc.length,
-//   //         data: doc,
-//   //       });
-//   //     }
-//   //   });
-//   // } catch (error) {
-//   //   res.json({
-//   //     status: "1",
-//   //     msg: error.message
-//   //   });
-//   // }
-// });
+router.post("/login", (req, res) => {
+  console.log(req.body.username);
+  try {
+    let param = {
+      username: req.body.username,
+      password: req.body.password
+    }
+    Users.findOne({},"-_id", (err, doc) => {
+      if (err) {
+        res.json({
+          status: "0",
+          msg: err.message
+        });
+      } else {
+        res.json({
+          status: "1",
+          msg: "登陆成功",
+          count: doc.length,
+          data: doc,
+        });
+      }
+    });
+  } catch (error) {
+    res.json({
+      status: "0",
+      msg: error.message
+    });
+  }
+});
 module.exports = router;
