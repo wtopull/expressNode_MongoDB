@@ -59,7 +59,7 @@ router.post("/login",function(req,res,next){
         });
         res.json({
           status:"0",
-          msg: "获取个人信息成功！",
+          msg: "获取个人信息",
           data:{
             username:doc.username
           }
