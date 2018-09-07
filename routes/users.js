@@ -30,7 +30,7 @@ router.get("/",function(req,res,next){
     }else{
       res.json({
         status:"0",
-        msg:"",
+        msg:"获取个人信息成功！",
         data:{
           count:doc.length,
           data:doc
@@ -57,10 +57,9 @@ router.post("/login",function(req,res,next){
           path:'/',
           maxAge:3600000
         });
-        // res.session.user = doc;
         res.json({
           status:"0",
-          msg:"",
+          msg: "获取个人信息成功！",
           data:{
             username:doc.username
           }
