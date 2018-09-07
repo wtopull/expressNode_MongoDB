@@ -4,10 +4,10 @@ var Schema = mongoose.Schema;
 var produtSchema = new Schema({
     "username":String,
     "password":String,
-    "productId":String,
-    "productNume":String,
+    "id":String,
+    "nicknume":String,
     "salePrice":Number,
-    "productImage":String,
+    "img":String,
 });
 
 //暴露模型

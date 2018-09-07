@@ -3,22 +3,24 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var ejs = require("ejs");
+var ejs = require("ejs"); //切换模板语言
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
+//切换模板语言
 // app.engine(".html",ejs.__express);
 // app.set('view engine', 'html');
 app.set('view engine', 'jade');
 
 app.all('*', function(req, res, next) {
+  res.header("Access-Control-Allow-Credentials", true);
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With,Content-Type");
-  res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+  res.header("Content-Type", "application/json;charset=utf-8");
   next();
 });
 

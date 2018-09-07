@@ -9,7 +9,7 @@ router.get('/', function (req, res, next) {
     dbo.collection("hf").findOne({}, function (err, data) {
       if (err) throw err;
       res.render('index', {
-        title: data.name
+        title: "haa___"
       });
       db.close();
     });
