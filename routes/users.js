@@ -2,14 +2,16 @@ var express = require("express");
 var router = express.Router();
 var mongoose = require("mongoose");
 var Users = require("../model/users");
+var url = "mongodb://127.0.0.1:27017/test";
+// var url = "mongodb://root:123456@111.231.207.167:27017/test";
+
 /*导入node的加密库*/
 // var crypto = require('crypto');
 
 //有账号密码，连接数据库
-// mongoose.connection("mongodb://root:123456@111.231.207.167:27017/test");
-
+// mongoose.connect(url, {useNewUrlParser: true})
 //连接数据库
-mongoose.connect("mongodb://127.0.0.1:27017/test");
+mongoose.connect(url,{useNewUrlParser: true});
 //监听数据库连接是否成功
 mongoose.connection.on("connected", function () {
   console.log("数据库连接成功！")
@@ -27,8 +29,7 @@ router.get("/", function (req, res, next) {
     if (!username) {
       throw new Error('参数错误');
     }
-    Users.findOne({username: req.query.username}, '-_id', (err, doc) => {
-    // Users.find({}, '-_id', (err, doc) => {
+    Users.find({username: req.query.username}, '-_id', (err, doc) => {
       if (err) {
         res.json({
           status: "0",
@@ -95,7 +96,7 @@ router.post("/login", (req, res) => {
       username: req.body.username,
       password: req.body.password
     }
-    Users.findOne({},"-_id", (err, doc) => {
+    Users.find({},"-_id", (err, doc) => {
       if (err) {
         res.json({
           status: "0",
