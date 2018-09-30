@@ -6,7 +6,7 @@ var Users = require("../model/users");
 // var crypto = require('crypto');
 
 //有账号密码，连接数据库
-// mongoose.connection("mongodb://root:123456@127.0.0.1:27017/test")
+// mongoose.connection("mongodb://root:123456@111.231.207.167:27017/test");
 
 //连接数据库
 mongoose.connect("mongodb://127.0.0.1:27017/test");
