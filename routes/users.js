@@ -23,12 +23,12 @@ mongoose.connection.on("disconnected", function () {
 
 router.get("/", function (req, res, next) {
   try {
-    let username = req.query.username;
-    if (!username) {
-      throw new Error('参数错误');
-    }
-    Users.findOne({username: req.query.username}, '-_id', (err, doc) => {
-    // Users.find({}, '-_id', (err, doc) => {
+    // let username = req.query.username;
+    // if (!username) {
+    //   throw new Error('参数错误');
+    // }
+    // Users.findOne({username: req.query.username}, '-_id', (err, doc) => {
+    Users.find({}, '-_id', (err, doc) => {
       if (err) {
         res.json({
           status: "0",
@@ -87,34 +87,4 @@ router.get("/", function (req, res, next) {
 //     res.end(JSON.stringify(dataError));
 //   }
 // });
-
-router.post("/login", (req, res) => {
-  console.log(req.body.username);
-  try {
-    let param = {
-      username: req.body.username,
-      password: req.body.password
-    }
-    Users.findOne({},"-_id", (err, doc) => {
-      if (err) {
-        res.json({
-          status: "0",
-          msg: err.message
-        });
-      } else {
-        res.json({
-          status: "1",
-          msg: "登陆成功",
-          count: doc.length,
-          data: doc,
-        });
-      }
-    });
-  } catch (error) {
-    res.json({
-      status: "0",
-      msg: error.message
-    });
-  }
-});
 module.exports = router;

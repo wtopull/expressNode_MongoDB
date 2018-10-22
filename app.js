@@ -6,13 +6,14 @@ var logger = require('morgan');
 var ejs = require("ejs"); //切换模板语言
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var loginsRouter = require('./routes/logins')
+var BgloginRouter = require('./routes/bglogins')
+var listsRouter = require('./routes/readlists')
 var bodyParser = require('body-parser');
 var app = express();
 
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 //切换模板语言
 // app.engine(".html",ejs.__express);
@@ -37,6 +38,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/login', loginsRouter);
+app.use('/bglogin', BgloginRouter);
+app.use('/list', listsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
