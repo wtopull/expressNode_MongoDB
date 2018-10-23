@@ -6,13 +6,9 @@ var logger = require('morgan');
 var ejs = require("ejs"); //切换模板语言
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-<<<<<<< HEAD
 var loginsRouter = require('./routes/logins')
 var BgloginRouter = require('./routes/bglogins')
 var listsRouter = require('./routes/readlists')
-=======
-var docsRouter = require('./routes/docs');
->>>>>>> da6f92bfce421468bf959468fb7fb476dafe10d7
 var bodyParser = require('body-parser');
 var app = express();
 
@@ -42,13 +38,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-<<<<<<< HEAD
 app.use('/login', loginsRouter);
 app.use('/bglogin', BgloginRouter);
 app.use('/list', listsRouter);
-=======
-app.use('/docs', docsRouter);
->>>>>>> da6f92bfce421468bf959468fb7fb476dafe10d7
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

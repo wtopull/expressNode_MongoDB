@@ -4,6 +4,7 @@ var mongoose = require("mongoose");
 var Readlists = require("../model/readlists");
 //连接数据库
 mongoose.connect("mongodb://127.0.0.1:27017/test");
+// mongoose.connect("mongodb://111.231.207.167:27017/test");
 //监听数据库连接是否成功
 mongoose.connection.on("connected", function () {
     console.log("数据库连接成功！")
@@ -39,4 +40,41 @@ router.get("/", function (req, res, next) {
         });
     }
 });
+router.post("/", (req, res, next) => {
+    try {
+        let param = {
+            title:req.body.title
+        }
+        Readlists.find({},"-_id").then( doc =>{
+            var readlist = [];
+
+            doc.forEach(item =>{
+                console.log(item);
+                readlist:[
+                    {
+                        
+                    }
+                ]
+            })
+            res.json({
+                status: "1",
+                msg: "删除成功！"
+            });
+        })
+
+        // Readlists.deleteMany({title:param.title}).then(doc => {
+        //     res.json({
+        //         status: "1",
+        //         msg: "删除成功！",
+        //         data: doc
+        //     });
+        //     console.log(doc);
+        // })
+    } catch (error) {
+        res.json({
+            status: "0",
+            msg: error.message
+        });
+    }
+})
 module.exports = router;
