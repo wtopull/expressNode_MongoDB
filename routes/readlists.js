@@ -25,6 +25,14 @@ router.get("/", function (req, res, next) {
                     msg: err.message
                 });
             } else {
+                let listarr = [];
+                doc.forEach((item, k) => {
+                    if (!listarr[item.type]) {
+                        listarr[item.type] = [];
+                    }
+                    listarr[item.type].push(item);
+                });
+                doc = listarr;
                 res.json({
                     status: "1",
                     msg: "获取信息成功！",
@@ -45,31 +53,14 @@ router.post("/", (req, res, next) => {
         let param = {
             title:req.body.title
         }
-        Readlists.find({},"-_id").then( doc =>{
-            var readlist = [];
-
-            doc.forEach(item =>{
-                console.log(item);
-                readlist:[
-                    {
-                        
-                    }
-                ]
-            })
+        Readlists.deleteMany({title:param.title}).then(doc => {
             res.json({
                 status: "1",
-                msg: "删除成功！"
+                msg: "删除成功！",
+                data: doc
             });
+            console.log(doc);
         })
-
-        // Readlists.deleteMany({title:param.title}).then(doc => {
-        //     res.json({
-        //         status: "1",
-        //         msg: "删除成功！",
-        //         data: doc
-        //     });
-        //     console.log(doc);
-        // })
     } catch (error) {
         res.json({
             status: "0",

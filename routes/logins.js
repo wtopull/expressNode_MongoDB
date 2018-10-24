@@ -15,13 +15,13 @@ mongoose.connection.on("disconnected", function () {
     console.log("数据库连接断开！")
 });
 
-router.post("/", (req, res, next) => {
+router.post("/", (req, res) => {
     try {
         let param = {
             username: req.body.username,
             password: req.body.password
         }
-        Bglogins.findOne({
+        Logins.findOne({
             username: req.body.username
         }, '-_id').then(doc => {
             if (doc.password == param.password) {
