@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var readlists = new Schema({
     "id": String,
+    "type": String,
     "title": String,
     "date": String,
     "img": String,

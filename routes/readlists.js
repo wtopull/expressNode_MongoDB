@@ -16,28 +16,27 @@ mongoose.connection.on("disconnected", function () {
     console.log("数据库连接断开！")
 });
 
-router.get("/", function (req, res, next) {
+router.get("/", async function (req, res, next) {
     try {
-        Readlists.find({}, '-_id', (err, doc) => {
+        Readlists.find({}, "-_id", (err, doc) => {
             if (err) {
                 res.json({
                     status: "0",
                     msg: err.message
                 });
             } else {
-                let listarr = [];
-                doc.forEach((item, k) => {
-                    if (!listarr[item.type]) {
-                        listarr[item.type] = [];
+                var listarr = new Object();
+                doc.forEach(item => {
+                    if (!listarr[ item.type ]) {
+                        listarr[ item.type ] = [];
                     }
-                    listarr[item.type].push(item);
+                    listarr[item.type].push(item)
                 });
-                doc = listarr;
                 res.json({
                     status: "1",
-                    msg: "获取信息成功！",
-                    count: doc.length,
-                    data: doc,
+                    msg: "获取信息成功了！",
+                    count: listarr.length,
+                    data: listarr
                 });
             }
         });
@@ -51,15 +50,16 @@ router.get("/", function (req, res, next) {
 router.post("/", (req, res, next) => {
     try {
         let param = {
-            title:req.body.title
+            title: req.body.title
         }
-        Readlists.deleteMany({title:param.title}).then(doc => {
+        Readlists.deleteMany({
+            title: param.title
+        }).then(doc => {
             res.json({
                 status: "1",
                 msg: "删除成功！",
                 data: doc
             });
-            console.log(doc);
         })
     } catch (error) {
         res.json({
