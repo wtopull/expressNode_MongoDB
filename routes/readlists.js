@@ -25,18 +25,11 @@ router.get("/", async function (req, res, next) {
                     msg: err.message
                 });
             } else {
-                var listarr = new Object();
-                doc.forEach(item => {
-                    if (!listarr[ item.type ]) {
-                        listarr[ item.type ] = [];
-                    }
-                    listarr[item.type].push(item)
-                });
                 res.json({
                     status: "1",
                     msg: "获取信息成功了！",
-                    count: listarr.length,
-                    data: listarr
+                    count: doc.length,
+                    data: doc
                 });
             }
         });
