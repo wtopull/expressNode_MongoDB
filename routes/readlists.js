@@ -40,7 +40,7 @@ router.get("/", async function (req, res, next) {
         });
     }
 });
-router.post("/", (req, res, next) => {
+router.post("/dele", (req, res, next) => {
     try {
         let param = {
             title: req.body.title
@@ -51,6 +51,30 @@ router.post("/", (req, res, next) => {
             res.json({
                 status: "1",
                 msg: "删除成功！",
+                data: doc
+            });
+        })
+    } catch (error) {
+        res.json({
+            status: "0",
+            msg: error.message
+        });
+    }
+})
+router.post("/insert", (req, res, next) => {
+    try {
+        let param = {
+            type: req.body.type,
+            title: req.body.title,
+            date: req.body.date,
+            img: req.body.date,
+            subtitle: req.body.subtitle,
+            contents: req.body.contents
+        }
+        Readlists.create(param).then(doc => {
+            res.json({
+                status: "1",
+                msg: "添加成功！",
                 data: doc
             });
         })
